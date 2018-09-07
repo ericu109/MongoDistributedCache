@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDistributedCache", "MongoDistributedCache\MongoDistributedCache.csproj", "{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDistributedCache.Tests", "MongoDistributedCache.Tests\MongoDistributedCache.Tests.csproj", "{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|x64.Build.0 = Release|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFE1A5B0-6028-4C7F-A4A0-D4E912CD952F}.Release|x86.Build.0 = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|x64.Build.0 = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Debug|x86.Build.0 = Debug|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|x64.ActiveCfg = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|x64.Build.0 = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|x86.ActiveCfg = Release|Any CPU
+		{3ED0DCF6-F479-45C0-9D3F-67C3FDB8F38A}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
