@@ -20,7 +20,7 @@ namespace MongoDistributedCache
 
             services.AddOptions();
             services.Configure<MongoDistributedCacheOptions>(m => m = options);
-            services.AddSingleton<MongoAccessor>();
+            services.AddSingleton<IMongoAccessor, MongoAccessor>();
             services.AddSingleton<IDistributedCache, MongoDistributedCache>();
 
             return services;

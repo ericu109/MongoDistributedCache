@@ -17,6 +17,7 @@ namespace MongoDistributedCache.Tests
             Collection = "none",
             Hosts = new List<string>{"host"}
         };
+        
         [Fact]
         public void AddMongoDistributedCache_RegistersDistributedCache()
         {
