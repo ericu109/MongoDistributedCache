@@ -11,7 +11,7 @@ namespace MongoDistributedCache.Tests
     public class ServiceExtensionsTests
     {
         private MongoDistributedCacheOptions validMongoDistributedCacheOptions => new MongoDistributedCacheOptions{
-            UserName = "none",
+            Username = "none",
             Password = "none",
             Database = "none",
             Collection = "none",
@@ -60,7 +60,7 @@ namespace MongoDistributedCache.Tests
             var services = new ServiceCollection();
 
             Assert.Throws<ArgumentException>(() => services.AddMongoDistributedCache(new MongoDistributedCacheOptions{
-                UserName = "none",
+                Username = "none",
                 Password = "none",
                 Collection = "none",
                 Hosts = new List<string>{"host"}
@@ -73,7 +73,7 @@ namespace MongoDistributedCache.Tests
             var services = new ServiceCollection();
 
             Assert.Throws<ArgumentException>(() => services.AddMongoDistributedCache(new MongoDistributedCacheOptions{
-                UserName = "none",
+                Username = "none",
                 Password = "none",
                 Database = "none",
                 Hosts = new List<string>{"host"}
@@ -86,7 +86,7 @@ namespace MongoDistributedCache.Tests
             var services = new ServiceCollection();
 
             Assert.Throws<ArgumentException>(() => services.AddMongoDistributedCache(new MongoDistributedCacheOptions{
-                UserName = "none",
+                Username = "none",
                 Password = "none",
                 Database = "none",
                 Collection = "none"
