@@ -10,7 +10,7 @@ namespace MongoDistributedCache
     public class MongoDistributedCache : IDistributedCache
     {
         private readonly TimeSpan _expiredRemovalInterval;
-        private readonly MongoAccessor _mongoAccessor;
+        private readonly IMongoAccessor _mongoAccessor;
         private DateTimeOffset _lastRemoval = DateTime.UtcNow;
 
         private void deleteExpired()
@@ -19,49 +19,59 @@ namespace MongoDistributedCache
             
             if(_lastRemoval.Add(_expiredRemovalInterval) < utcNow)
             {
-                _mongoAccessor.DeleteMany(Builders<MongoCacheItem>.Filter.Eq(m => m.ExpiresAt, utcNow));
+                _mongoAccessor.DeleteMany(m => m.ExpiresAt < utcNow);
                 _lastRemoval = utcNow;
             }
         }
 
-        public MongoDistributedCache(IOptions<MongoDistributedCacheOptions> opts)
+        public MongoDistributedCache(IOptions<MongoDistributedCacheOptions> opts, IMongoAccessor mongoAccessor)
         {
             var options = opts.Value;
 
             _expiredRemovalInterval = options.ExpiredRemovalInterval.HasValue ? options.ExpiredRemovalInterval.Value : TimeSpan.FromMinutes(3);
 
-            _mongoAccessor = new MongoAccessor(opts);
+            _mongoAccessor = mongoAccessor;
         }
 
         public byte[] Get(string key)
         {
-            Refresh(key);
-            var rval = _mongoAccessor.Get(key).Value;
             deleteExpired();
+            Refresh(key);
+            var rval = _mongoAccessor.Get(key)?.Value;
             return rval;
         }
 
         public async Task<byte[]> GetAsync(string key, CancellationToken token = default(CancellationToken))
         {
+            deleteExpired();
             await RefreshAsync(key, token);
             var rval = _mongoAccessor.GetAsync(key, token);
-            deleteExpired();
-            return (await rval).Value;
+            return (await rval)?.Value;
         }
 
         public void Refresh(string key)
         {
             var cacheItem = _mongoAccessor.Get(key);
-            cacheItem.RefreshExpiresAt();
-            _mongoAccessor.Upsert(key, cacheItem);
+
+            if(cacheItem != null)
+            {
+                cacheItem.RefreshExpiresAt();
+                _mongoAccessor.Upsert(key, cacheItem);
+            }
+            
             deleteExpired();
         }
 
         public async Task RefreshAsync(string key, CancellationToken token = default(CancellationToken))
         {
             var cacheItem = await _mongoAccessor.GetAsync(key, token);
-            cacheItem.RefreshExpiresAt();
-            await _mongoAccessor.UpsertAsync(key, cacheItem, token);
+            
+            if(cacheItem != null)
+            {
+                cacheItem.RefreshExpiresAt();
+                await _mongoAccessor.UpsertAsync(key, cacheItem, token);
+            }
+            
             deleteExpired();
         }
 

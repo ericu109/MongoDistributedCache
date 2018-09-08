@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace MongoDistributedCache
 {
-    public class MongoDistributedCacheOptions
+    public class MongoDistributedCacheOptions : IOptions<MongoDistributedCacheOptions>
     {
         /// <summary>
         /// The Database in Mongo to target.
@@ -30,6 +31,9 @@ namespace MongoDistributedCache
         /// The interval to look for and remove expired cache entries.
         /// </summary>
         public TimeSpan? ExpiredRemovalInterval {get;set;}
+
+        public MongoDistributedCacheOptions Value => this; // TODO: Figure out how to not implement IOptions, or see if it's really a problem
+
         internal string GetConnectionString()
         {
             var sb = new StringBuilder();

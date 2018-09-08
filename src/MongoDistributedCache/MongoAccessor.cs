@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -53,7 +54,7 @@ namespace MongoDistributedCache
             return _mongoCollection.DeleteManyAsync(getQuery(key).Filter, token);
         }
 
-        public void DeleteMany(FilterDefinition<MongoCacheItem> filter)
+        public void DeleteMany(Expression<Func<MongoCacheItem, bool>> filter)
         {
             _mongoCollection.DeleteMany(filter);
         }
