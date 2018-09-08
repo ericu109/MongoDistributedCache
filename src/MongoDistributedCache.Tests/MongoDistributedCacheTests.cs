@@ -165,7 +165,10 @@ namespace MongoDistributedCache.Tests
 
             var value = new byte[1];
 
-            sot.Set("MyKey", value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(3)).SetSlidingExpiration(TimeSpan.FromSeconds(1)));
+            sot.Set("MyKey", value, new DistributedCacheEntryOptions()
+                                        .SetAbsoluteExpiration(TimeSpan.FromSeconds(3))
+                                        .SetSlidingExpiration(TimeSpan.FromSeconds(1))
+                                    );
 
             for (int i = 0; i < 6; i++)
             {
