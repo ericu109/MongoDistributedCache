@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace MongoDistributedCache
 {
@@ -19,7 +20,14 @@ namespace MongoDistributedCache
                 throw new InvalidOperationException($"Registration of a MongoDistributedCache would replace another registered cache of type {currentlyRegisteredDistributedCache.ServiceType.FullName}!");
 
             services.AddOptions();
-            services.Configure<MongoDistributedCacheOptions>(m => m = options);
+            services.Configure<MongoDistributedCacheOptions>(m => {
+                m.Username = options.Username;
+                m.Password = options.Password;
+                m.Database = options.Database;
+                m.Collection = options.Collection;
+                m.ExpiredRemovalInterval = options.ExpiredRemovalInterval;
+                m.Hosts = options.Hosts;
+            });
             services.AddSingleton<IMongoAccessor, MongoAccessor>();
             services.AddSingleton<IDistributedCache, MongoDistributedCache>();
 

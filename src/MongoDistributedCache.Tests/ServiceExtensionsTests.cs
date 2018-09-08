@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MongoDistributedCache.Tests.Fakes;
 using Xunit;
 
@@ -17,12 +18,31 @@ namespace MongoDistributedCache.Tests
             Collection = "none",
             Hosts = new List<string>{"host"}
         };
-        
+
+        [Fact]
+        public void AddMongoDistributedCache_MongoDistributedCacheOptions_AreRegistered()
+        {
+            var service = new ServiceCollection();
+
+            service.AddMongoDistributedCache(validMongoDistributedCacheOptions);
+
+            var serviceProvider = service.BuildServiceProvider();
+
+            var options = serviceProvider.GetService<IOptions<MongoDistributedCacheOptions>>().Value;
+
+            Assert.Equal(validMongoDistributedCacheOptions.Username, options.Username);
+            Assert.Equal(validMongoDistributedCacheOptions.Password, options.Password);
+            Assert.Equal(validMongoDistributedCacheOptions.Database, options.Database);
+            Assert.Equal(validMongoDistributedCacheOptions.Collection, options.Collection);
+            Assert.Equal(validMongoDistributedCacheOptions.Hosts, options.Hosts);
+            Assert.Equal(validMongoDistributedCacheOptions.ExpiredRemovalInterval, options.ExpiredRemovalInterval);
+        }
+
         [Fact]
         public void AddMongoDistributedCache_RegistersDistributedCache()
         {
             var services = new ServiceCollection();
-
+            
             services.AddMongoDistributedCache(validMongoDistributedCacheOptions);
 
             var cache = services.FirstOrDefault(m => m.ServiceType == typeof(IDistributedCache));
