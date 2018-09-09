@@ -8,10 +8,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Build and Test
-        command: |
-          dotnet test
-          dotnet build
-          dotnet pack
+          name: Build and Test
+          command: |
+            dotnet test
+            dotnet build
+            dotnet pack
       - store_artifacts:
-        path: artifacts
+          path: artifacts
