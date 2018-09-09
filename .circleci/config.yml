@@ -3,8 +3,8 @@ jobs:
   build:
     docker: 
       - image: microsoft/dotnet:2.1-sdk
-      environment:
-        DEBIAN_FRONTEND: "noninteractive"
+        environment:
+          DEBIAN_FRONTEND: "noninteractive"
     steps:
       - checkout
       - run:
