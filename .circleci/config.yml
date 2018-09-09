@@ -39,9 +39,9 @@ workflows:
     jobs:
       - build
       - request-deployment-approval
-        type: approval
-        requires:
-          - build
+          type: approval
+          requires:
+            - build
       - deployToNuget
-        requires:
-          - build
+          requires:
+            - build
