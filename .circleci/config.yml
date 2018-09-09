@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker: 
+      - image: microsoft/dotnet:2.1-sdk
+      environment:
+        DEBIAN_FRONTEND: "noninteractive"
+    steps:
+      - checkout
+      - run:
+        name: Build and Test
+        command: |
+          dotnet test
+          dotnet build
+          dotnet pack
+      - store_artifacts:
+        path: artifacts
