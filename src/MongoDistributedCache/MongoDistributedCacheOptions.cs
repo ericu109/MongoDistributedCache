@@ -34,7 +34,7 @@ namespace MongoDistributedCache
 
         public MongoDistributedCacheOptions Value => this; // TODO: Figure out how to not implement IOptions, or see if it's really a problem
 
-        internal string GetConnectionString()
+        public string GetConnectionString()
         {
             var sb = new StringBuilder();
 
