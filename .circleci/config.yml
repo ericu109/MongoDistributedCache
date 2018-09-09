@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: microsoft/aspnetcore-build:2.1
+      - image: microsoft/aspnetcore-build
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
@@ -43,7 +43,7 @@ jobs:
 
   deployToNuget:
     docker:
-      - image: microsoft/aspnetcore-build:2.1
+      - image: microsoft/aspnetcore-build
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
