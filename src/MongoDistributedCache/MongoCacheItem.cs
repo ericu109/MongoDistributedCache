@@ -66,11 +66,6 @@ namespace MongoDistributedCache
                 rval = now.Add(options.AbsoluteExpirationRelativeToNow.Value);
             }
 
-            if(rval < now)
-            {
-                throw new InvalidOperationException($"Absolute expiration must be in the future! Now is \"{now}\", AbsoluteExpiration is \"{rval}\"");
-            }
-
             return rval;
         }
     }
