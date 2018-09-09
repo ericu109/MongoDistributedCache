@@ -9,11 +9,17 @@ jobs:
       - checkout
 
       - run:
-          name: Build and Test
+          name: Build and Test With Version
           command: |
-            dotnet build -c Release src/MongoDistributedCache/MongoDistributedCache.csproj
+            npm install --global npx
+            npm install --global semantic-release
+            npm install --global @semantic-release/changlog
+            npm install --global @semantic-release/git
+            npm install --global @semantic-release/exec
+            a=$(npx semantic-release --dry-run | grep -oP "^.+next release versi on is \K(.*)$")
+            dotnet build -c Release /p:Version=$a src/MongoDistributedCache/MongoDistributedCache.csproj
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
-            dotnet pack -c Release --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
+            dotnet pack -c Release /p:Version=$a --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
 
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
@@ -31,7 +37,20 @@ jobs:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
       - attach_workspace:
-        at: artifacts
+          at: artifacts
+
+      - run:
+          name: Install NodeJS
+          command: apt-get install -y nodejs
+
+      - run:
+        name: Install npx and semantic-release
+        command: |
+          npm install --global npx
+          npm install --global semantic-release
+          npm install --global @semantic-release/changlog
+          npm install --global @semantic-release/git
+          npm install --global @semantic-release/exec
 
 workflows:
   version: 2
