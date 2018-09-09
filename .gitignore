@@ -32,6 +32,7 @@ msbuild.wrn
 
 # Test Results
 [Tt]est[Rr]esults/
+lcov.info
 
 # Visual Studio 2015
 .vs/
