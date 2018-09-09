@@ -10,8 +10,8 @@ jobs:
       - run:
           name: Build and Test
           command: |
-            dotnet test
-            dotnet build
-            dotnet pack
+            dotnet build -c Release src/MongoDistributedCache/MongoDistributedCache.csproj
+            dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
+#            dotnet pack src/MongoDistributedCache/MongoDistributedCache/MongoDistributedCache.csproj
       - store_artifacts:
           path: artifacts
