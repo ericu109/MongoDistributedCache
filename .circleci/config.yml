@@ -12,11 +12,8 @@ jobs:
           name: Build and Test
           command: |
             dotnet build -c Release src/MongoDistributedCache/MongoDistributedCache.csproj
-            dotnet test "--logger:trx;LogFileName=results.xml" src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
+            dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
             dotnet pack -c Release --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
-
-      - store_test_results:
-          path: src/MongoDistributedCache.Tests/TestResults
 
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
