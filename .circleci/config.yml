@@ -15,6 +15,9 @@ jobs:
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
             dotnet pack -c Release --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
 
+      - store_test_results:
+          path: src/MongoDistributedCache.Tests/TestResults
+
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
           destination: artifacts
