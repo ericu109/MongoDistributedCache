@@ -2,18 +2,18 @@ version: 2
 jobs:
   build:
     docker: 
-      - image: microsoft/dotnet:2.1-sdk
+      - image: microsoft/aspnetcore-build:2.1
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
       - checkout
 
-      - run:
-          name: Install NodeJS
-          command: |
-            apt-get update
-            apt-get install -y nodejs
-            source ~/.bashrc
+      # - run:
+      #     name: Install NodeJS
+      #     command: |
+      #       apt-get update
+      #       apt-get install -y nodejs
+      #       source ~/.bashrc
 
       - run:
           name: Install semantic-release and supporting packages
@@ -43,16 +43,16 @@ jobs:
 
   deployToNuget:
     docker:
-      - image: microsoft/dotnet:2.1-sdk
+      - image: microsoft/aspnetcore-build:2.1
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
       - attach_workspace:
           at: artifacts
 
-      - run:
-          name: Install NodeJS
-          command: apt-get install -y nodejs
+      # - run:
+      #     name: Install NodeJS
+      #     command: apt-get install -y nodejs
 
       - run:
         name: Install npx and semantic-release
