@@ -20,7 +20,7 @@ jobs:
           destination: artifacts
 
       - persist_to_workspace:
-          root: artifacts
+          root: src/MongoDistributedCache/bin/Release
           paths:
             - "*.nupkg"
 
