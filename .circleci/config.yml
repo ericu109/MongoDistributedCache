@@ -7,12 +7,41 @@ jobs:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
       - checkout
+
       - run:
           name: Build and Test
           command: |
             dotnet build -c Release src/MongoDistributedCache/MongoDistributedCache.csproj
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
             dotnet pack -c Release --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
+
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
           destination: artifacts
+
+      - persist_to_workspace:
+        root: artifacts
+        paths:
+          - "*.nupkg"
+
+  deployToNuget:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+        environment:
+          DEBIAN_FRONTEND: "noninteractive"
+    steps:
+      - attach_workspace:
+        at: artifacts
+
+workflows:
+  version: 2
+  deployment-pipeline:
+    jobs:
+      - build
+      - request-deployment-approval
+        type: approval
+        requires:
+          -build
+      - deployToNuget
+        requires:
+          - build

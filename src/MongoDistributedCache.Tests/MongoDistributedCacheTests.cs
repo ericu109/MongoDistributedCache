@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDistributedCache.Tests.Fakes;
@@ -76,27 +77,25 @@ namespace MongoDistributedCache.Tests
         }
 
         [Fact]
-        public void SetAsync_OverwritesExistingValue_ReturnsNewValue()
+        public async Task SetAsync_OverwritesExistingValue_ReturnsNewValue()
         {
             var sot = new MongoDistributedCache(_options, new InMemoryMongoAccessor());
 
             var value = new byte[1];
             var value2 = new byte[2];
 
-            sot.SetAsync("MyKey", value).Wait();
+            await sot.SetAsync("MyKey", value);
 
             var result = sot.GetAsync("MyKey");
-            result.Wait();
 
-            Assert.Equal(value, result.Result);
+            Assert.Equal(value, await result);
 
-            sot.SetAsync("MyKey", value2);
+            await sot.SetAsync("MyKey", value2);
 
             var result2 = sot.GetAsync("MyKey");
-            result2.Wait();
 
-            Assert.Equal(result2.Result, value2);
-            Assert.NotEqual(result.Result, value2);
+            Assert.Equal(await result2, value2);
+            Assert.NotEqual(await result, value2);
         }
 
         [Fact]
