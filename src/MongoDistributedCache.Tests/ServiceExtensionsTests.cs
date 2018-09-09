@@ -21,6 +21,12 @@ namespace MongoDistributedCache.Tests
         };
 
         [Fact]
+        public void TemporaryFailingTest()
+        {
+            throw new Exception("Test");
+        }
+
+        [Fact]
         public void MongoDistributedCacheOptions_BuildConnectionString()
         {
             var sot = new MongoDistributedCacheOptions
