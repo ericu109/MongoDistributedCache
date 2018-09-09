@@ -20,9 +20,9 @@ jobs:
           destination: artifacts
 
       - persist_to_workspace:
-        root: artifacts
-        paths:
-          - "*.nupkg"
+          root: artifacts
+          paths:
+            - "*.nupkg"
 
   deployToNuget:
     docker:
