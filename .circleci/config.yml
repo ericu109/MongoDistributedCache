@@ -38,7 +38,7 @@ workflows:
   deployment-pipeline:
     jobs:
       - build
-      - request-deployment-approval
+      - requestDeploymentApproval
           type: approval
           requires:
            - build
