@@ -41,7 +41,7 @@ workflows:
       - request-deployment-approval
           type: approval
           requires:
-            - build
+           - build
       - deployToNuget
           requires:
             - build
