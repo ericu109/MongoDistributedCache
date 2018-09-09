@@ -1,0 +1,1 @@
+dotnet watch --project ../src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
