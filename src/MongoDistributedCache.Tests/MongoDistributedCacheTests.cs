@@ -76,6 +76,50 @@ namespace MongoDistributedCache.Tests
         }
 
         [Fact]
+        public void SetAsync_OverwritesExistingValue_ReturnsNewValue()
+        {
+            var sot = new MongoDistributedCache(_options, new InMemoryMongoAccessor());
+
+            var value = new byte[1];
+            var value2 = new byte[2];
+
+            sot.SetAsync("MyKey", value).Wait();
+
+            var result = sot.GetAsync("MyKey");
+            result.Wait();
+
+            Assert.Equal(value, result.Result);
+
+            sot.SetAsync("MyKey", value2);
+
+            var result2 = sot.GetAsync("MyKey");
+            result2.Wait();
+
+            Assert.Equal(result2.Result, value2);
+            Assert.NotEqual(result.Result, value2);
+        }
+
+        [Fact]
+        public void RemoveAsync_RemovesValue()
+        {
+            var sot = new MongoDistributedCache(_options, new InMemoryMongoAccessor());
+
+            var value = new byte[1];
+
+            sot.Set("MyKey", value);
+
+            var result = sot.Get("MyKey");
+
+            Assert.Equal(value, result);
+
+            sot.RemoveAsync("MyKey").Wait();
+
+            var result2 = sot.Get("MyKey");
+
+            Assert.Null(result2);
+        }
+
+        [Fact]
         public void Remove_RemovesValue()
         {
             var sot = new MongoDistributedCache(_options, new InMemoryMongoAccessor());

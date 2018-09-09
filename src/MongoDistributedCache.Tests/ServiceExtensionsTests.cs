@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -18,6 +19,21 @@ namespace MongoDistributedCache.Tests
             Collection = "none",
             Hosts = new List<string>{"host"}
         };
+
+        [Fact]
+        public void MongoDistributedCacheOptions_BuildConnectionString()
+        {
+            var sot = new MongoDistributedCacheOptions
+            {
+                Username = "Username",
+                Password = "Password",
+                Database = "Database",
+                Collection = "Collection",
+                Hosts = new List<string> {"host1.com:1234"}
+            };
+
+            Assert.Equal("mongodb://Username:Password@host1.com:1234/Database", sot.GetConnectionString());
+        }
 
         [Fact]
         public void AddMongoDistributedCache_MongoDistributedCacheOptions_AreRegistered()
