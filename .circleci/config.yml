@@ -38,10 +38,10 @@ workflows:
   deployment-pipeline:
     jobs:
       - build
-      - requestDeploymentApproval
+      - deployApproval:
           type: approval
           requires:
-           - build
+            - build
       - deployToNuget
           requires:
             - build
