@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>MongoDistributedCache</PackageId>
-    <Version>1.0.0</Version>
+    <Version>0.0.1</Version>
     <Authors>Eric</Authors>
     <PackageLicenseUrl>https://github.com/ericu109/MongoDistributedCache/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ericu109/MongoDistributedCache</PackageProjectUrl>
