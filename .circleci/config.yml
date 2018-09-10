@@ -27,10 +27,12 @@ jobs:
       - run:
           name: Build and Test With Version
           command: |
-            a=$(npx semantic-release --dry-run | grep -oP "^.+next release version is \K(.*)$")
-            dotnet build -c Release /p:Version=$a src/MongoDistributedCache/MongoDistributedCache.csproj
+            semanticReleaseOutput=$(npx semantic-release --dry-run)
+            echo $semanticReleaseOutput
+            versionNumber=$($semanticReleaseOutput | grep -oP "^.+next release version is \K(.*)$")
+            dotnet build -c Release /p:Version=$versionNumber src/MongoDistributedCache/MongoDistributedCache.csproj
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
-            dotnet pack -c Release /p:Version=$a src/MongoDistributedCache/MongoDistributedCache.csproj
+            dotnet pack -c Release /p:Version=$versionNumber src/MongoDistributedCache/MongoDistributedCache.csproj
 
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
