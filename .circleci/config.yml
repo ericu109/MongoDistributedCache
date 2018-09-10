@@ -9,10 +9,11 @@ jobs:
       - checkout
 
       - run:
-          name: Install NodeJS
+          name: Install NodeJS and npm
           command: |
             apt-get update
             apt-get install -y nodejs
+            apt-get install -y npm
 
       - run:
           name: Install semantic-release and supporting packages
