@@ -83,8 +83,13 @@ workflows:
   deployment-pipeline:
     jobs:
       - buildAndTest
+      - buildWithVersionApproval:
+          type: approval
+          requires:
+            - buildAndTest
       - buildWithVersion:
           requires:
+            - buildWithVersionApproval
             - buildAndTest
       - deployApproval:
           type: approval
