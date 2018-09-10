@@ -1,6 +1,19 @@
 version: 2
 jobs:
-  build:
+  buildAndTest:
+    docker: 
+      - image: microsoft/dotnet:2.1-sdk
+        environment:
+          DEBIAN_FRONTEND: "noninteractive"
+    steps:
+      - checkout
+      - run:
+            name: Build and Test
+            command: |
+              dotnet build src/MongoDistributedCache/MongoDistributedCache.csproj
+              dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
+
+  buildWithVersion:
     docker: 
       - image: microsoft/dotnet:2.1-sdk
         environment:
@@ -69,12 +82,17 @@ workflows:
   version: 2
   deployment-pipeline:
     jobs:
-      - build
+      - buildAndTest
+      - buildWithVersion:
+          requires:
+            - buildAndTest
       - deployApproval:
           type: approval
           requires:
-            - build
+            - buildAndTest
+            - buildWithVersion
       - deployToNuget:
           requires:
-            - build
+            - buildAndTest
+            - buildWithVersion
             - deployApproval
