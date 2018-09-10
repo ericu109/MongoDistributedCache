@@ -30,7 +30,7 @@ jobs:
             a=$(npx semantic-release --dry-run | grep -oP "^.+next release version is \K(.*)$")
             dotnet build -c Release /p:Version=$a src/MongoDistributedCache/MongoDistributedCache.csproj
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
-            dotnet pack -c Release /p:Version=$a --include-source --include-symbols src/MongoDistributedCache/MongoDistributedCache.csproj
+            dotnet pack -c Release /p:Version=$a src/MongoDistributedCache/MongoDistributedCache.csproj
 
       - store_artifacts:
           path: src/MongoDistributedCache/bin/Release
