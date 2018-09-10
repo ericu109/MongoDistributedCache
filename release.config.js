@@ -16,21 +16,26 @@ module.exports = {
         '@semantic-release/github',
         // '@semantic-release/exec'
     ],
-    publish: [
+    prepare: [
         // https://github.com/semantic-release/changelog
         // Set of semantic-release plugins for creating or updating a changelog file.
-        // '@semantic-release/changelog',
-
+         '@semantic-release/changelog',
         // https://github.com/semantic-release/git
         // Git plugin is need so the changelog file will be committed to the Git repository and available on subsequent builds in order to be updated.
-        // '@semantic-release/git',
+        {
+            "path": "@semantic-release/git",
+            "assets": "./artifacts/*.nupkg",
+            "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+    ],
+    publish: [
 
         // https://github.com/semantic-release/git
         // Exec plugin uses to call dotnet nuget push to push the packages from 
         // the artifacts folder to NuGet
         {
             path: '@semantic-release/exec',
-            cmd: `dotnet nuget push .\\artifacts\\*.nupkg -k ${process.env.NugetApiKey} -s https://api.nuget.org/v3/index.json`,
+            cmd: `dotnet nuget push ./artifacts/*.nupkg -k ${process.env.NugetApiKey} -s https://api.nuget.org/v3/index.json`,
         },
         
         // https://github.com/semantic-release/github
