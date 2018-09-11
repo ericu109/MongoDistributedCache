@@ -47,8 +47,6 @@ namespace MongoDistributedCache
 
             sb.Append(string.Join(",", Hosts));
 
-            sb.Append($"/{Database}");
-
             return sb.ToString();
         }
     }
