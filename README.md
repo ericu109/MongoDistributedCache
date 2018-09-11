@@ -2,6 +2,20 @@
 
 An implementation of IDistributedCache for MongoDB
 
+## Installation
+
+### .NET CLI
+
+```bash
+> dotnet add package MongoDistributedCache
+```
+
+### Package Manager
+
+```bash
+PM> Install-Package MongoDistributedCache
+```
+
 ## Usage
 
 ```CSharp
