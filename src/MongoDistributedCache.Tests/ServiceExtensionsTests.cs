@@ -80,14 +80,20 @@ namespace MongoDistributedCache.Tests
         }
 
         [Fact]
-        public void AddMongoDistributedCache_ReplaceUserRegisteredDistributedCache_ThrowsInvalidOperationException()
+        public void AddMongoDistributedCache_DoesntReplaceUserRegisteredCache()
         {
             var services = new ServiceCollection();
             services.AddScoped<IDistributedCache, FakeDistibutedCache>();
 
-            Action action = () => services.AddMongoDistributedCache(validMongoDistributedCacheOptions);
+            services.AddMongoDistributedCache(validMongoDistributedCacheOptions);
 
-            Assert.Throws<InvalidOperationException>(action);
+            var serviceProvider = services.BuildServiceProvider();
+            var cacheRegistration = services.FirstOrDefault(desc => desc.ServiceType == typeof(IDistributedCache));
+            var cache = serviceProvider.GetService<IDistributedCache>();
+
+            Assert.NotNull(cacheRegistration);
+            Assert.Equal(cacheRegistration.Lifetime, ServiceLifetime.Scoped);
+            Assert.IsType<FakeDistibutedCache>(cache);
         }
 
         [Fact]

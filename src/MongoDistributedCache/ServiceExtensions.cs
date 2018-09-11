@@ -15,10 +15,6 @@ namespace MongoDistributedCache
 
             ensureValidOptions(options);
 
-            var currentlyRegisteredDistributedCache = services.FirstOrDefault(m => m.ServiceType == typeof(IDistributedCache));
-            if(currentlyRegisteredDistributedCache != null)
-                throw new InvalidOperationException($"Registration of a MongoDistributedCache would replace another registered cache of type {currentlyRegisteredDistributedCache.ServiceType.FullName}!");
-
             services.AddOptions();
             services.Configure<MongoDistributedCacheOptions>(m => {
                 m.Username = options.Username;
@@ -28,8 +24,9 @@ namespace MongoDistributedCache
                 m.ExpiredRemovalInterval = options.ExpiredRemovalInterval;
                 m.Hosts = options.Hosts;
             });
+
             services.AddSingleton<IMongoAccessor, MongoAccessor>();
-            services.AddSingleton<IDistributedCache, MongoDistributedCache>();
+            services.TryAdd(ServiceDescriptor.Singleton<IDistributedCache, MongoDistributedCache>());
 
             return services;
         }
