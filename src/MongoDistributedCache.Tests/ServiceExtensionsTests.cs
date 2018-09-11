@@ -32,7 +32,7 @@ namespace MongoDistributedCache.Tests
                 Hosts = new List<string> {"host1.com:1234"}
             };
 
-            Assert.Equal("mongodb://Username:Password@host1.com:1234/Database", sot.GetConnectionString());
+            Assert.Equal("mongodb://Username:Password@host1.com:1234", sot.GetConnectionString());
         }
 
         [Fact]
