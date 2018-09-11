@@ -92,7 +92,7 @@ namespace MongoDistributedCache.Tests
             var cache = serviceProvider.GetService<IDistributedCache>();
 
             Assert.NotNull(cacheRegistration);
-            Assert.Equal(cacheRegistration.Lifetime, ServiceLifetime.Scoped);
+            Assert.Equal(ServiceLifetime.Scoped, cacheRegistration.Lifetime);
             Assert.IsType<FakeDistibutedCache>(cache);
         }
 
