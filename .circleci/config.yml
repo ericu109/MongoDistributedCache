@@ -65,18 +65,24 @@ jobs:
       - attach_workspace:
           at: artifacts
 
-      # - run:
-      #     name: Install NodeJS
-      #     command: apt-get install -y nodejs
+      - checkout
+
+      - run:
+          name: Install NodeJS and npm
+          command: |
+            apt-get update
+            curl -sL https://deb.nodesource.com/setup_10.x | bash -
+            apt-get install -y nodejs
 
       - run:
           name: Install npx and semantic-release
-          command: find .
-          # npm install --global npx
-          # npm install --global semantic-release
-          # npm install --global @semantic-release/changlog
-          # npm install --global @semantic-release/git
-          # npm install --global @semantic-release/exec
+          command: |
+          npm install --global npx
+          npm install --global semantic-release
+          npm install --global @semantic-release/changelog
+          npm install --global @semantic-release/git
+          npm install --global @semantic-release/exec
+          npx semantic-release
 
 workflows:
   version: 2
