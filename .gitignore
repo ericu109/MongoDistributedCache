@@ -29,6 +29,7 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+artifacts/
 
 # Test Results
 [Tt]est[Rr]esults/
