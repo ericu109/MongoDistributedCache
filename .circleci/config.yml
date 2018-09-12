@@ -41,7 +41,7 @@ jobs:
           name: Build and Test With Version
           command: |
             semanticReleaseOutput=$(npx semantic-release --dry-run)
-            echo $semanticReleaseOutput
+            echo "$semanticReleaseOutput"
             versionNumber=$(echo "$semanticReleaseOutput" | grep -oP "^.+next release version is \K(.*)$")
             dotnet build -c Release /p:Version=$versionNumber src/MongoDistributedCache/MongoDistributedCache.csproj
             dotnet test src/MongoDistributedCache.Tests/MongoDistributedCache.Tests.csproj
