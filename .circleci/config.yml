@@ -62,10 +62,10 @@ jobs:
         environment:
           DEBIAN_FRONTEND: "noninteractive"
     steps:
+      - checkout
+      
       - attach_workspace:
           at: artifacts
-
-      - checkout
 
       - run:
           name: Install NodeJS and npm
