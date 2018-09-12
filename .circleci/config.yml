@@ -70,8 +70,8 @@ jobs:
           command: apt-get install -y nodejs
 
       - run:
-        name: Install npx and semantic-release
-        command: find .
+          name: Install npx and semantic-release
+          command: find .
           # npm install --global npx
           # npm install --global semantic-release
           # npm install --global @semantic-release/changlog
