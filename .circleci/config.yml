@@ -77,12 +77,12 @@ jobs:
       - run:
           name: Install npx and semantic-release
           command: |
-          npm install --global npx
-          npm install --global semantic-release
-          npm install --global @semantic-release/changelog
-          npm install --global @semantic-release/git
-          npm install --global @semantic-release/exec
-          npx semantic-release
+            npm install --global npx
+            npm install --global semantic-release
+            npm install --global @semantic-release/changelog
+            npm install --global @semantic-release/git
+            npm install --global @semantic-release/exec
+            npx semantic-release
 
 workflows:
   version: 2
