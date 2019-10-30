@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Options;
 
@@ -34,6 +35,8 @@ namespace MongoDistributedCache
 
         public MongoDistributedCacheOptions Value => this; // TODO: Figure out how to not implement IOptions, or see if it's really a problem
 
+        public Dictionary<string, string> Options { get; set; }
+
         public string GetConnectionString()
         {
             var sb = new StringBuilder();
@@ -43,6 +46,11 @@ namespace MongoDistributedCache
             if(!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
             {
                 sb.Append($"{Username}:{Password}@");
+            }
+
+            if (Options?.Count > 0)
+            {
+                sb.Append($"?{string.Join("&", Options.Select(m => $"{m.Key}={m.Value}"))}");
             }
 
             sb.Append(string.Join(",", Hosts));
